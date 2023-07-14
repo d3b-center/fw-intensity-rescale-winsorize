@@ -13,7 +13,15 @@ def scale_winorize(img_path):
     img_data[img_data <= min_val] = min_val # mask for less than 1st percentile, gets changed to value of 1st percentile
     img_data[img_data >= max_val] = max_val # mask for greater than 99th percentile, gets changed to value of 99th percentile
 
-    img_data = ((img_data - min_val) * 1.0) / (max_val - min_val) # normalize entire image to be within range of 0-1
+    # normalize entire image to be within range of 0-1
+    # img_data = ((img_data - min_val) * 1.0) / (max_val - min_val) 
+
+    # normalize entire image to be within range of 0-255
+    interval_min = 0
+    interval_max = 255
+    im_min = np.min(img_data)
+    im_max = np.max(img_data)
+    img_data = ((img_data - im_min) / (im_max - im_min)) * (interval_max - interval_min) + interval_min
 
     normalized_image = nib.Nifti1Image(img_data, img.affine, img.header)
 
