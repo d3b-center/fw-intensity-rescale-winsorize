@@ -29,7 +29,7 @@ def run(file_path, gtk_context: GearToolkitContext):
         dict: Dictionary containing the file meta.
 
     """
-    destination_id = gtk_context.destination["id"]
+    destination_id = gtk_context.destination["id"] # if gear is run on a file, this is the acquisition ID
     hierarchy = get_analysis_run_level_and_hierarchy(gtk_context.client, destination_id)
     sub_label = hierarchy['subject_label']
     ses_label = hierarchy['session_label']
@@ -42,7 +42,6 @@ def run(file_path, gtk_context: GearToolkitContext):
 
     # find the acquisition that the input file came from
     dest_path = f'{group_name}/{project_label}/{sub_label}/{ses_label}/{acq_label}'
-    acq = fw.lookup(dest_path)
 
     # define the output file name based on the input file name
     in_fname = os.path.basename(file_path)
@@ -59,5 +58,5 @@ def run(file_path, gtk_context: GearToolkitContext):
     
     # upload the normalized file to the target acquisition
     log.info(f"Saving output file {out_fname} to: {dest_path}")
-    fw.upload_file_to_acquisition(acq.id, out_fname)
+    fw.upload_file_to_acquisition(destination_id, out_fname)
     os.remove(out_fname)
