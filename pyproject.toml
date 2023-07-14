@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "fw_gear_copy_files_2_acq"
+name = "fw-intensity-rescale-winsorize"
 version = "0.0.0"
-description = "Copy pre-processed files to acquisition"
+description = "Normalize an input image"
 authors = ["D3b-TIRU <flywheel@d3b.center>"]
 readme = "README.md"
 license = "Apache-2.0"
@@ -9,7 +9,7 @@ keywords = [
     "Flywheel",
     "Gears"
 ]
-repository = "https://github.com/d3b-center/fw-qc-migrate-segmentation-files"
+repository = "https://github.com/d3b-center/fw-intensity-rescale-winsorize"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -17,7 +17,7 @@ flywheel-gear-toolkit = "^0.5"
 fw-core-client = "^1.0.2"
 fw-file = "^1.0.3"
 flywheel-sdk = "^16.16.7"
-pandas = "1.5.3"
+numpy = "1.23.5"
 nibabel = "3.2.1"
 
 [build-system]

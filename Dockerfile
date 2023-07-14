@@ -9,7 +9,7 @@ COPY pyproject.toml poetry.lock $FLYWHEEL/
 RUN poetry install --no-dev --no-root
 
 COPY run.py manifest.json README.md $FLYWHEEL/
-COPY fw_gear_qc_migrate_files ${FLYWHEEL}/fw_gear_qc_migrate_files 
+COPY fw_gear_intensity_rescale_winsorize ${FLYWHEEL}/fw_gear_intensity_rescale_winsorize 
 
 # Installing the current project (most likely to change, above install is cached)
 RUN poetry install --no-dev
