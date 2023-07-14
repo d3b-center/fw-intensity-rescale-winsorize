@@ -14,7 +14,7 @@
     },
     "gear-builder": {
       "category": "utility",
-      "image": "chop.flywheel.io/d3b-qc-migrate-seg-files:0.0.1"
+      "image": "chop.flywheel.io/d3b-intensity-rescale-winsorize:0.0.1"
     }
   },
   "environment": {
@@ -30,13 +30,18 @@
     "api-key": {
       "base": "api-key",
       "read-only": true
+    },
+      "input-file": {
+        "base": "file",
+        "description": "Input file.",
+        "optional": false
     }
   },
-  "label": "Migrate finalized segmentations",
-  "description": "This gear QCs and copies segmentation files to final project CBTN_completed_segmentations.",
+  "label": "Normalize: scale and winsorize signal intensity values of an image",
+  "description": " ",
   "license": "Apache-2.0",
   "maintainer": "D3b-TIRU <flywheel@d3b.center>",
-  "name": "d3b-migrate-seg-files",
-  "source": "https://github.com/d3b-center/fw-qc-migrate-segmentation-files", 
+  "name": "d3b-intensity-rescale-winsorize",
+  "source": "https://github.com/d3b-center/fw-intensity-rescale-winsorize", 
   "version": "0.0.1"
 }
