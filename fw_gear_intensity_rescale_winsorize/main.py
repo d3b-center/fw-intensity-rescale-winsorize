@@ -2,15 +2,13 @@
 import logging
 import os
 
-import openslide
-
 from fw_core_client import CoreClient
 from flywheel_gear_toolkit import GearToolkitContext
 import flywheel
 import nibabel as nib
 
 from .run_level import get_analysis_run_level_and_hierarchy
-from.normalize_images import scale_winorize
+from .normalize_images import scale_winorize
 
 log = logging.getLogger(__name__)
 
@@ -39,10 +37,12 @@ def run(file_path, gtk_context: GearToolkitContext):
     group_name = hierarchy['group']
     acq_label = hierarchy['acquisition_label']
 
+    log.info(f"Normalizing the input image : {file_path}")
     normalized_image = scale_winorize(file_path)
 
     # find the acquisition that the input file came from
-    acq = fw.lookup(f'{group_name}/{project_label}/{sub_label}/{ses_label}/{acq_label}')
+    dest_path = f'{group_name}/{project_label}/{sub_label}/{ses_label}/{acq_label}'
+    acq = fw.lookup(dest_path)
 
     # define the output file name based on the input file name
     in_fname = os.path.basename(file_path)
@@ -58,6 +58,6 @@ def run(file_path, gtk_context: GearToolkitContext):
     nib.save(normalized_image, out_fname)
     
     # upload the normalized file to the target acquisition
+    log.info(f"Saving output file {out_fname} to: {dest_path}")
     fw.upload_file_to_acquisition(acq.id, out_fname)
-    log.info(f"Saved output file {out_fname}")
     os.remove(out_fname)
