@@ -1,14 +1,18 @@
-# SDK gear to rename and copy pre-processed files
+# SDK gear to rescale and winorize images
 
-This gear takes the output of d3b-ped-preproc-pipeline-batch, renames the files (images and segmentations) to start with "CID_age_" and copies them to a "processed" acquisition directory in the same session.
+This gear takes the input file and:
+1. makes signal intensities outside of 1st/99th percentile to be equal to the value of the 1st/99th percentile ("winorize")
+2.  rescales all intensity values to be within 0-255 range
+3.  converts all values to integer data type
+4.  save normalized image to same acquisition container as the input file
 
 ## Usage
 
-Run at the session-level (either in batch or on a single session).
+Run at the file-level (either in batch or on a single session).
 
 ### Inputs
 
-None (gear will automatically go through all files in the session)
+input_file: image to be processed (nifti)
 
 ### Configuration
 
@@ -18,4 +22,4 @@ None (gear will automatically go through all files in the session)
 
 Current limitations of the gear are as follows:
 
-* 
+* doesn't run in batch mode
