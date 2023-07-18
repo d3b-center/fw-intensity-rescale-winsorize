@@ -5,7 +5,6 @@ def scale_winorize(img_path):
 
     img = nib.load(img_path)
     img_data = img.get_fdata()
-    img_data = np.float32(img_data)
 
     max_val = np.percentile(img_data, 99) # Find the 99.99th percentile
     min_val = np.percentile(img_data, 1)
@@ -22,6 +21,9 @@ def scale_winorize(img_path):
     im_min = np.min(img_data)
     im_max = np.max(img_data)
     img_data = ((img_data - im_min) / (im_max - im_min)) * (interval_max - interval_min) + interval_min
+
+    # convert to integer
+    img_data = img_data.astype(np.uint8)
 
     normalized_image = nib.Nifti1Image(img_data, img.affine, img.header)
 
